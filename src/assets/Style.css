@@ -1,0 +1,750 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Para evitar barras de desplazamiento horizontal */
+}
+
+/* Access */
+.logo-login{
+  width: 190px;
+  height: 190px;      
+}
+.m-container * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+.m-container{
+  background-image: url('/src/image/fondo_login.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  margin: 0; 
+  overflow-y: auto;
+}
+.container{
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  position: relative;
+}
+
+.container-login{
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  margin-top: -80px;
+  position: relative;
+}
+.back-box{
+  width: 100%;
+  margin-top: 2%;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;    
+  background-color: #350305;
+  opacity: 90%;
+  border-radius: 10px;
+  border: 2px solid #f8f7f4;
+} 
+.back-box div{
+  margin: 100px 40px;
+  color:#f8f7f4;
+  transition: all 500ms;
+}
+.back-box div p, .back-box div button{
+  margin-top: 20px;
+}
+.back-box div h3{
+  font-weight: 400;
+  font-size: 26px;
+  margin-left: 25px;
+}
+.back-box button{
+  padding: 10px 40px;
+  border: 2px solid #f8f7f4;
+  background-color: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #f8f7f4;
+  outline: none;
+  transition: all 300ms;
+  margin-left: 55px;
+}
+.back-box button:hover{
+  background-color: #f8f7f4;
+  color: #f87e17;
+}
+.front-box{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+  top: -185px;   
+  transition: left 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275);
+}
+.front-box-login{
+  display: flex;
+  position: relative;  
+  top: -195px;
+  width: 100%;
+}
+.front-box form{
+  width: 100%;
+  padding: 10px 20px 20px 30px;
+  background-color: #f8f7f4;
+  position: absolute;
+  border-radius: 10px;
+}
+.front-box form h2{
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: 50px;
+  color: #f87e17;
+}
+.front-box form input{
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  padding: 5px;    
+  border: none;
+  background-color: #f2f2f2;
+  font-size: 16px;
+  outline: none;
+}
+.front-box form button{
+  align-items: center;
+  padding: 10px 40px;
+  margin-top: 20px;
+  margin-left: 100px;
+  border: none;
+  font-size: 14px;
+  background-color: #f87e17;
+  color: #f8f7f4;
+  cursor: pointer;
+  outline: none;
+}
+.login{
+  opacity: 1;
+  display: block;
+  height: 400px;      
+}
+
+.register{
+  display: none;
+}
+
+.logo-whatsapp img{
+  position: fixed;
+  width: 55px;
+  height: 55px;
+  line-height: 55px;
+  bottom: 30px;
+  right: 30px;
+  background: #0df053;
+  color: #fff;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 30px;
+  box-shadow: 0px 1px 10px rgba(0,0,0,0.3);
+  z-index: 100;
+}
+.error-message{
+color: red;
+font-size:small;
+}
+/* Navbar */ 
+.navbar {
+  padding-bottom: 10px;
+  position: fixed;
+  z-index: 1000;
+  padding-top: 0; /* Eliminamos el padding superior */
+  width: 100%;
+  border-radius: 2rem;
+  padding: 15px 200px !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3); /* Agrega una sombra */
+}
+.nav-link:hover {
+  color: darkorange; /* Cambia el color del texto al pasar el mouse sobre los enlaces */
+}
+
+.navbar-collapse {
+  justify-content: flex-end; /* Alinea los elementos a la derecha */
+}
+
+.form-control {
+  width: 270px;
+  border-color: darkorange; /* Cambia el color del borde del campo de búsqueda */
+}
+
+.btn-outline-success {
+  color: #ffffff; /* Cambia el color del texto del botón de búsqueda */
+  background-color: orange; /* Cambia el color de fondo del botón de búsqueda */
+  border-color: orange; /* Cambia el color del borde del botón de búsqueda */
+}
+
+.btn-outline-success:hover {
+  background-color: darkorange; /* Cambia el color de fondo del botón al pasar el mouse */
+  border-color: darkorange; /* Cambia el color del borde del botón al pasar el mouse */
+}
+
+.ingus{
+  color: #ffffff; /* Cambia el color del texto del botón de búsqueda */
+  background-color: orange; /* Cambia el color de fondo del botón de búsqueda */
+  border-color: orange; /* Cambia el color del borde del botón de búsqueda */
+}
+.ingus:hover{
+  background-color: darkorange; /* Cambia el color de fondo del botón al pasar el mouse */
+  border-color: darkorange; /* Cambia el color del borde del botón al pasar el mouse */
+  color: #ffffff;
+}
+
+.logo{
+  width: 5rem;
+  height: auto;
+  margin-top: -15px;
+  margin-left: -6rem;
+}
+.bold-text {
+  font-weight: bold;
+}
+
+/* Slider */
+.carousel-item img {
+  margin: 0 auto;
+}
+.carousel-inner{
+  padding-top: 10rem;
+}
+
+  /* Slider */
+.carousel-item img {
+    margin: 0 auto;
+  }
+  .carousel-inner{
+    padding-top: 10rem;
+  }
+
+   /*Cartas*/
+.cartas-container {
+  padding-top: 5rem;
+  margin-right: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.card {
+  width: 20rem; 
+  margin-left: 1.3rem;
+  height: 430px; 
+}
+.card-body {
+  margin-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.btn-primary {
+  background-color: orange;
+  color: white;
+  border-color: orange;
+}
+.btn-primary:hover {
+  background-color: darkorange;
+  border-color: darkorange;
+}
+
+.userp:hover{
+  color: darkorange;
+}
+
+.btn-carrito{
+margin-left: 1rem;
+max-width: 3rem;
+}
+.btn-edit-delete{
+display:flex;
+justify-content: space-around;
+}
+
+/* Carrito */
+.cartContent {
+display:flex;
+justify-content: space-around;
+flex-wrap: wrap;
+margin: 0.1rem;
+border-radius: 5px;
+border: 1px solid #ccc;  
+}
+.cartContent > img {  
+height: 120px;
+width: 100px;
+text-align: center;
+border-radius: 5px;
+}
+.cart-message-center {
+text-align: center;
+margin-top: 40px;
+}
+
+/* Carrito */
+.cartContent {
+  display:flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 0.1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;  
+}
+
+.delete-btn {
+  margin-right: 1rem;
+}
+.quantity-section{
+  margin-top: 0.5rem;
+  padding-right: 1rem;
+}
+
+.cartContent > img {  
+  height: 120px;
+  width: 100px;
+  text-align: center;
+  border-radius: 5px;
+}
+.cart-message-center {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.actions{
+  display: flex; 
+  justify-content:end;
+  margin-top: -40px;
+} 
+  
+
+  /*Footer*/
+.footerdm {
+                  position: fixed; /*<-- CON ESTO EL FOOTER PUEDE BAJAR Y NO SE SOBRE PNDRÁ PERO A VECES NO SE MUESTRA*/
+  bottom: 0;
+  width: 100%;
+}
+.logs {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 70px;
+  }
+  
+  .logop {
+    width: 50px;
+    height: auto;
+    margin-left: 10px;
+  }
+  
+  .instagram-logo {
+    width: 40px;
+    height: auto;
+    margin-left: 10px;
+  }
+  
+.navbar {
+    padding-top: 2rem;
+  }  
+  
+/*Subir Foto*/
+.card-img-top {  
+  width: 100%; 
+  height: 200px; 
+  object-fit: cover; 
+}
+.domibt{
+  margin-top: 20px;
+}
+
+.allin{
+    padding-top: 8rem;
+}
+.esc{
+  padding-top: 6rem;
+}
+.agregar-producto-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;   
+    border-radius: 5px;
+    background-color: white;
+}
+
+.form-group {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.identt{
+  margin-left: 0.5rem;
+}
+
+.ident{
+  font-weight: bold;
+}
+
+.magenp {
+    font-weight: bold;
+}
+
+.magent[type="text"],
+.magent[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.submit-button {
+    background-color: orange;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: darkorange;
+}
+
+/* ShoppingSummary */
+.request-info{
+  border: 1px solid #ccc;
+  border-radius: 5px;  
+}
+.data_container{
+    max-width: 800px;
+    padding-top: 50px;
+    margin-left: 50px;
+
+}
+.container-ss{
+    display: flex;
+    max-width: 100%;    
+}
+.left-side {
+    flex: 2; 
+    padding: 50px; 
+}  
+.right-side {
+    flex: 1;
+    padding: 50px;  
+    margin-right: 50px;
+}
+.shopping_card{
+   margin-left: 50px;    
+}
+.shipping-value{
+    margin-top: 50px;
+    margin-left: 50px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.other-departaments{
+    color: red;
+}
+.note{
+  color: black;
+  font-size: small;
+}
+.padded-text{
+  text-align: center;
+  padding-top: 1.5rem;
+}
+.order-review{
+    max-width: 500px;
+    margin-left: 50px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.prior-order{
+    margin-top: 50px;
+    max-width: 500px;
+    margin-left: 50px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.review-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}  
+.review-item p {
+    margin: 0; 
+}  
+.bold {
+    font-weight: bold;
+}
+
+/* Domicilio */
+.table-shipment{
+  max-width: 80%;
+  margin-top: 20px;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    main {
+        margin-top: 50px;
+    }
+    .back-box {
+        max-width: 350px;
+        height: 300px;
+        flex-direction: column;
+        margin: auto;
+    }
+    .back-box div {
+        margin: 0px;
+        position: absolute;
+    }
+    .front-box {
+        top: -10px;
+        left: -5px;
+        margin: auto;
+    }
+    .front-box form {
+        position: relative;
+    }
+}
+/*adm-agregardomicilio*/
+
+
+.allin .custom-select {
+  margin-left: 3rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: black;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 2px solid orange;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.4s ease-in-out;
+}
+.nombenvio{
+  text-align: center;
+}
+
+.allin .custom-select:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.20rem rgb(255, 140, 0);
+}
+
+.allin .hidden {
+  display: none;
+}
+
+
+/* Adm pedidos realizados */
+.titpedidos{
+  padding-bottom: 1.5rem;
+}
+
+.shipview{
+  padding-top: 10rem;
+  margin-left: 14rem;
+  text-align: center; /* Centramos el contenido horizontalmente */
+  width: 100%;
+}
+
+.deldm{
+  margin-left: 9px;
+}
+
+.order-container {
+  padding-top: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.order-summary {
+  border: 2px solid orange;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  width: 300px; /* Cambiar el ancho a 300px */
+  margin-right: 70px; /* Agregar un margen derecho */
+}
+
+
+.customer-name {
+  font-weight: bold;
+}
+
+.total-products,
+.date,
+.total-price {
+  margin-top: 5px;
+}
+
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.orders-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.order-summary {
+  width: calc(100% - 0px);
+}
+
+/*UserProfile view*/
+.profile-container-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.editpf{ /*editar datos, nombre, direccion etc etc*/
+  padding-right: 0.5rem;
+}
+
+.editbton{/*edita el boton "regresar a la compra en el perfil user*/
+  margin-left: 5rem;
+}
+
+.editdl{
+  margin-left: 7rem;
+}
+.editdlc{
+  margin-top: 1rem;
+  margin-left: 3rem;
+}
+
+.profile-container {
+  margin-top: 10rem; 
+  max-width: 800px;
+  padding: 70px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px darkorange; 
+}
+
+.profile-title {
+  text-align: center;
+  font-size: 34px;
+  margin-bottom: 2rem;
+}
+
+.profile-field {
+  margin-bottom: 20px;
+}
+
+.profile-label {
+  font-weight: bold;
+}
+
+.profile-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: orange;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.profile-button:hover {
+  background-color: darkorange;
+}
+
+/*compras*/
+.user-shops-container {
+  text-align: center; /* Centra el contenido */
+  padding-top: 10rem; 
+}
+
+.compras-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Organiza las compras en filas de máximo cuatro ejemplos */
+  gap: 20px; /* Espacio entre las compras */
+  justify-items: center; /* Centra el contenido horizontalmente */
+}
+
+.compra {
+  width: 250px; /* Ancho del componente de compra */
+  padding: 10px; /* Espaciado interno */
+  border: 2px solid orange; 
+  border-radius: 5px; 
+  text-align: left; 
+}
+
+.detalle {
+  margin-bottom: 10px; /* Espacio entre los detalles de la compra y los productos */
+}
+.NomCompras{
+  padding-bottom: 2rem;
+}
+
+.producto {
+  margin-bottom: 5px; /* Espacio entre los productos */
+}
+
+.my-container {
+  margin: 0 auto;
+  width: 80%;
+}
+
+.my-table {
+  margin-top: 1rem;
+}
+
+.container{
+  padding-top: 10rem;
+}
+
+.editdc{ /*edita el boton de editar la direccion*/
+  margin-left: 17rem;
+  margin-bottom: 2rem;
+}
+
+.editd{/*edit de boton en summary*/
+  margin-left: 7rem;
+}
+
+.editc{/*edit de boton en summary*/
+  margin-left: 8rem;
+}
+
+.alertvacio{/*estilo alerta de crro vacio*/
+  padding-top: 2rem;
+  text-align: center;
+}
+.cancedit{
+  margin-top: 5px;
+}
+
