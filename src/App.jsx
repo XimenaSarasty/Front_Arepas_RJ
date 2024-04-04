@@ -18,14 +18,10 @@ import ShipmentView from "./components/ShipmentView.jsx";
 import Home from "./pages/Home.jsx";
 import PaymentGateway from "./pages/PaymentGateway.jsx";
 import ShoppingProvider from "./context/shoppingContext.jsx";
-import MercadoPago from "mercadopago";
 import UserProvider from "./context/userContext.jsx";
 import AdmProfile from "./pages/AdmProfile.jsx";
 
-
 function App() {
-
-  const mercadoPago = new MercadoPago("TEST-5222133002454186-031221-9233c0d8e552ec1c09de40b87b51334c-1723211973");
 
   return (
     <>
@@ -33,31 +29,31 @@ function App() {
         <ShoppingProvider>
           <DataProvider>
               <BrowserRouter>
-              <Routes>  
+              <Routes>
                     <Route path='/' element={<Home />} />
                     <Route path='/home/login' element={<HomeLogin />} />
                     <Route path='/login/register' element={<RegisterLogin />} />
-                    <Route path='/products' element={<Products />} />  
+                    <Route path='/products' element={<Products />} />
                     <Route path='/shoppingcart' element={<ShoppingCart />} />
                     <Route path='/admin/new-product' element={<AdmViewNewProd />} />
                     <Route path='/admin/shipment-fee' element={<AdmDomicilio />} />
                     <Route path='/user/profile' element={<ProfileUser/>} />
-                    <Route path='/shoppingsummary' element={<ShoppingSummary />} />        
+                    <Route path='/shoppingsummary' element={<ShoppingSummary />} />
                     <Route path='/admin/adm-order' element={<AdmOrder />} />
-                    <Route path='/admin' element={<HomeAdmView />} />    
+                    <Route path='/admin' element={<HomeAdmView />} />
                     <Route path="/admin/profile" element={<AdmProfile />} />
                     <Route path="/user/user-history" element={<UserHistory />} />
                     <Route path="/user/payment/gateway" element={<PaymentGateway />} />
                     <Route path="/admin/roles" element={<RolesView />} />
-                    <Route path="/admin/:id/edit-prod" element={<EditProduct />} />   
-                    <Route path="/admin/shipmentView" element={<ShipmentView />} />             
+                    <Route path="/admin/:id/edit-prod" element={<EditProduct />} />
+                    <Route path="/admin/shipmentView" element={<ShipmentView />} />
                 </Routes>
               </BrowserRouter>
             </DataProvider>
           </ShoppingProvider>
       </UserProvider>
     </>
-  ) 
+  )
 }
 
 export default App

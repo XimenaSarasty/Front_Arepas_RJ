@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import NavAdm from './NavAdm';
+import Cookies from 'js-cookie';
 
 const RolesAdmin = () => {
   const [users, setUsers] = useState([]);
@@ -8,23 +8,33 @@ const RolesAdmin = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, []); // Esta función se ejecutará solo una vez al cargar el componente
+  }, []); 
 
   const fetchUsers = async () => {
     try {
-      if (email.trim() !== '') {
-        const response = await fetch(`http://localhost:8080/api/modify-role-button/getUser/${email}`);
-        if (!response.ok) {
-          throw new Error('Error al obtener los usuarios');
+        const token = Cookies.get('token');
+        if (!token) {
+            console.error("Token no encontrado. No se pueden obtener los usuarios.");
+            return;
         }
-        const data = await response.json();
-        setUsers(data);
-      }
+
+        if (email.trim() !== '') {
+            const response = await fetch(`http://localhost:8080/api/admin/modify-role-button/getUser/${email}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            if (!response.ok) {
+                throw new Error('Error al obtener los usuarios');
+            }
+            const data = await response.json();
+            setUsers(data);
+        }
     } catch (error) {
-      alert('No hay registro de usuarios con el correo proporcionado')
-      window.location.reload();
+        alert('No hay registro de usuarios con el correo proporcionado');
+        window.location.reload();
     }
-  };
+};
 
   const handleSearch = () => {
     fetchUsers();
@@ -45,22 +55,31 @@ const RolesAdmin = () => {
 
   const handleSave = async () => {
     try {
-      const modifiedUser = users.find(user => user[1] === email);
-      if (!modifiedUser) {
-        throw new Error('No se encontró el usuario');
-      }
-  
-      const response = await fetch(`http://localhost:8080/api/modify-role-button/newRole/${email}?newRole=${modifiedUser[2]}`, {
-        method: 'PUT',
-      });
-      if (!response.ok) {
-        throw new Error('Error al actualizar el rol');
-      }
-      alert('Rol actualizado con éxito');
+        const token = Cookies.get('token');
+        if (!token) {
+            console.error("Token no encontrado. No se puede actualizar el rol del usuario.");
+            return;
+        }
+
+        const modifiedUser = users.find(user => user[1] === email);
+        if (!modifiedUser) {
+            throw new Error('No se encontró el usuario');
+        }
+
+        const response = await fetch(`http://localhost:8080/api/admin/modify-role-button/newRole/${email}?newRole=${modifiedUser[2]}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Error al actualizar el rol');
+        }
+        alert('Rol actualizado con éxito');
     } catch (error) {
-      alert('Ocurrió un error al actualizar el rol');
+        alert('Ocurrió un error al actualizar el rol');
     }
-  };
+};
   
 
   return (

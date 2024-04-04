@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import NavAdm from './NavAdm';
+import Cookies from 'js-cookie';
 import "../assets/Style.css";
 
 const EditProduct = () => {
@@ -50,11 +51,18 @@ const EditProduct = () => {
             if (products.imageFile) {
                 formData.append('imageFile', products.imageFile);
             }
-    
-            const url = `http://localhost:8080/api/updateProduct/${id}`;
+            
+            const token = Cookies.get('token');
+            if (!token) {
+                console.error("Token no encontrado. No se puede actualizar el producto.");
+                return;
+            }
+
+            const url = `http://localhost:8080/api/admin/updateProduct/${id}`;
             await axios.put(url, formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${token}`
                 }
             });
             alert('Producto actualizado con éxito');
@@ -63,7 +71,6 @@ const EditProduct = () => {
             console.log(error.response.data.message);
         }
     };
-    
 
     return (
         <div className="">

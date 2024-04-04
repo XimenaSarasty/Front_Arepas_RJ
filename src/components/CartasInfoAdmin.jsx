@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import MUIDataTable from 'mui-datatables';
+import Cookies from 'js-cookie';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -19,8 +20,20 @@ const Products = () => {
   }, []);
 
   const handleDelete = async (idProduct) => {
+    const token = Cookies.get('token');
+
+    if (!token) {
+      // Manejar la situación si no hay token
+      console.error("Token no encontrado. No se puede eliminar el producto.");
+      return;
+    }
+
     try {
-      await axios.delete(`http://localhost:8080/api/deleteProduct/${idProduct}`);
+      await axios.delete(`http://localhost:8080/api/admin/deleteProduct/${idProduct}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       setProducts(products.filter(product => product.idProduct !== idProduct));
       alert('Producto eliminado exitosamente');
     } catch (error) {
