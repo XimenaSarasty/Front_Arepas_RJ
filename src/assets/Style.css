@@ -585,16 +585,23 @@ textarea {
   align-items: center;
 }
 
+.order-container-v {
+  padding-top: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 60px;
+}
+
 .order-summary {
   border: 2px solid orange;
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
   cursor: pointer;
-  width: 300px; /* Cambiar el ancho a 300px */
-  margin-right: 70px; /* Agregar un margen derecho */
+  width: 300px; 
+  margin-right: 70px; 
 }
-
 
 .customer-name {
   font-weight: bold;

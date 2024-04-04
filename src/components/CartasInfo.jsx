@@ -65,7 +65,6 @@ const Products = ({ filteredProducts }) => {
             ) : null
           ))
         )}
-        <h2>Hello World</h2>
       </div>
   );
 };

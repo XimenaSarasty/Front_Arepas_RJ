@@ -1,10 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { cartContext } from '../context/cartContext'; 
 import { shoppingContext } from '../context/shoppingContext';
-import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import { userContext } from './../context/userContext';
 import { useNavigate } from 'react-router-dom';
-import axios from "axios";
+import Cookies from 'js-cookie';
 
 const OrderReview = () => {
   const navigate = useNavigate();
@@ -24,50 +23,55 @@ const OrderReview = () => {
   const total = subtotal + shippingPrice;
 
   const handleBuy = async () => {
-
-    const infoBuy = {
-      date: Date.now(),
-      name: user.name,
-      lastName: user.lastName,
-      products: cart.map( product => {
-        return {
-          productName: product.productName,
-          quantity: product.quantity,
-          price: product.unityPrice
-        }
-      }),    
-      totalPayment: total,
-      department: selectedDepartment,
-      city: selectedCity,
-      commune: selectedMunicipality ? selectedMunicipality:selectedCity,
-      address: user.address,
-      orderStatus: "En gestión"
-    }
-    console.log(infoBuy);
-
-    const apiUrl = 'http://localhost:8080/api/buy';
-
-    fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(infoBuy), 
-    })
-      .then(response => {
-        
-        if (response.ok) {
-          console.log('La compra fue realizada con éxito');
-          navigate('/user/payment/gateway');
-        } else {
-          console.error('Hubo un problema al realizar la compra');
-        }
-      })
-      .catch(error => {
-          console.error('Error de red:', error);
+    try {
+      const infoBuy = {
+        name: user.name,
+        lastName: user.lastName,
+        email: user.email,
+        products: cart.map(product => {
+          return {
+            productName: product.productName,
+            quantity: product.quantity,
+            price: product.unityPrice
+          };
+        }),
+        totalPayment: total,
+        department: selectedDepartment,
+        city: selectedCity,
+        commune: selectedMunicipality ? selectedMunicipality : selectedCity,
+        address: user.address,
+        orderStatus: "En gestión"
+      };
+      console.log(infoBuy);
+  
+      const token = Cookies.get('token');
+  
+      if (!token) {
+        console.error("Token no encontrado. No se puede realizar la compra.");
+        return;
+      }
+  
+      const apiUrl = 'http://localhost:8080/api/user/buy';
+  
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}` 
+        },
+        body: JSON.stringify(infoBuy),
       });
+  
+      if (response.ok) {
+        console.log('La compra fue realizada con éxito');
+        navigate('/user/payment/gateway');
+      } else {
+        console.error('Hubo un problema al realizar la compra');
+      }
+    } catch (error) {
+      console.error('Error al realizar la compra:', error);
+    }
   };
-
 
   return (
     
@@ -89,7 +93,7 @@ const OrderReview = () => {
         <h5 className="bold">TOTAL</h5>
         <h5 className="bold">${total}</h5>
       </div>
-      </div>
+      </div>   
       <div className="col-12 mb-4">
           <button type="submit" className="editc btn btn-primary" onClick={handleBuy}>Ir a Pago</button>
           {preferenceId && <Wallet initialization={{ preferenceId: preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}}} />}

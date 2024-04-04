@@ -3,72 +3,97 @@ import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import NavAdm from './NavAdm';
 import jsPDF from 'jspdf';
+import Cookies from 'js-cookie';
 
 function ShipmentView() {
   const [domicilios, setDomicilios] = useState([]);
   const [error, setError] = useState(null);
   const [editingDomicilio, setEditingDomicilio] = useState(null);
-
   useEffect(() => {
     const fetchDomicilios = async () => {
-      try {
-        const response = await fetch('http://localhost:8080/api/delivery/getAll');
-        if (!response.ok) {
-          throw new Error('Error al obtener domicilios');
+        try {
+            const response = await fetch('http://localhost:8080/api/delivery/getAll', {
+                headers: {
+                    Authorization: `Bearer ${Cookies.get('token')}`
+                }
+            });
+            if (!response.ok) {
+                throw new Error('Error al obtener domicilios');
+            }
+            const data = await response.json();
+            setDomicilios(data);
+        } catch (error) {
+            setError(error);
         }
-        const data = await response.json();
-        setDomicilios(data);
-      } catch (error) {
-        setError(error);
-      }
     };
 
     fetchDomicilios();
-  }, []);
+}, []);
 
-    const handleDelete = async (idDeliveryPrice) => {
+const handleDelete = async (idDeliveryPrice) => {
     try {
-      await axios.delete(`http://localhost:8080/api/delivery/delete/${idDeliveryPrice}`);
-      setDomicilios(domicilios.filter(domicilio => domicilio.idDeliveryPrice !== idDeliveryPrice));
-      alert('Precio de domiclio eliminado exitosamente');
-    } catch (error) {
-      console.error('Error al eliminar el precio de domicilio:', error);
-      alert('Ocurrió un error al eliminar el precio de domicilio');
-    }
-  };
+        const token = Cookies.get('token');
+        if (!token) {
+            console.error("Token no encontrado. No se puede eliminar el precio de domicilio.");
+            return;
+        }
 
-  const handleEdit = (domicilio) => {
-    setEditingDomicilio({ ...domicilio });
-  };
-
-  const handleCancelEdit = () => {
-    setEditingDomicilio(null);
-  };
-
-  const handleSaveEdit = async () => {
-    try {
-      const response = await axios.put(`http://localhost:8080/api/delivery/update/${editingDomicilio.idDeliveryPrice}`, {
-        ...editingDomicilio, // Enviar todos los campos del domicilio
-      });
-      if (response.status === 200) {
-        const updatedDomicilios = domicilios.map(item => {
-          if (item.idDeliveryPrice === editingDomicilio.idDeliveryPrice) {
-            return { ...item, deliveryPrice: editingDomicilio.deliveryPrice };
-          } else {
-            return item;
-          }
+        await axios.delete(`http://localhost:8080/api/admin/delivery/delete/${idDeliveryPrice}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
         });
-        setDomicilios(updatedDomicilios);
-        setEditingDomicilio(null);
-        alert('Cambios guardados exitosamente');
-      } else {
-        throw new Error('Error al guardar cambios');
-      }
+        setDomicilios(domicilios.filter(domicilio => domicilio.idDeliveryPrice !== idDeliveryPrice));
+        alert('Precio de domicilio eliminado exitosamente');
     } catch (error) {
-      console.error('Error al guardar cambios:', error);
-      alert('Ocurrió un error al guardar cambios');
+        console.error('Error al eliminar el precio de domicilio:', error);
+        alert('Ocurrió un error al eliminar el precio de domicilio');
     }
-  };
+};
+
+const handleEdit = (domicilio) => {
+    setEditingDomicilio({ ...domicilio });
+};
+
+const handleCancelEdit = () => {
+    setEditingDomicilio(null);
+};
+
+const handleSaveEdit = async () => {
+    try {
+        const token = Cookies.get('token');
+        if (!token) {
+            console.error("Token no encontrado. No se pueden guardar los cambios.");
+            return;
+        }
+
+        const response = await axios.put(`http://localhost:8080/api/admin/delivery/update/${editingDomicilio.idDeliveryPrice}`, {
+            ...editingDomicilio, // Enviar todos los campos del domicilio
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        if (response.status === 200) {
+            const updatedDomicilios = domicilios.map(item => {
+                if (item.idDeliveryPrice === editingDomicilio.idDeliveryPrice) {
+                    return { ...item, deliveryPrice: editingDomicilio.deliveryPrice };
+                } else {
+                    return item;
+                }
+            });
+            setDomicilios(updatedDomicilios);
+            setEditingDomicilio(null);
+            alert('Cambios guardados exitosamente');
+        } else {
+            throw new Error('Error al guardar cambios');
+        }
+    } catch (error) {
+        console.error('Error al guardar cambios:', error);
+        alert('Ocurrió un error al guardar cambios');
+    }
+};
+
 
   const handleInputChange = (e) => {
     setEditingDomicilio({ ...editingDomicilio, [e.target.name]: e.target.value });
