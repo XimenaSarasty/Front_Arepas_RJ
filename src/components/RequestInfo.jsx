@@ -140,7 +140,18 @@ const RequestInfo = () => {
               readOnly
             />
           </div>
-
+          <div className="col-md-6">
+            <label htmlFor="inputemail4" className="form-label htmlFor"></label>
+            <input
+              type="email"
+              name= "email"
+              value={user.email}
+              className="form-control"
+              id="inputNames4"
+              placeholder="Email"
+              readOnly
+            />
+          </div>
           <div className="col-md-6">
             <label htmlFor="inputPhone" className="form-label htmlFor"></label>
             <input
@@ -154,7 +165,7 @@ const RequestInfo = () => {
             />
           </div>
 
-          <div className="col-md-6 mb-4">
+          <div className="col-md-6">
             <label htmlFor="departmentSelect" className="form-label htmlFor"></label>
             <select
               value={selectedDepartment}
@@ -170,7 +181,7 @@ const RequestInfo = () => {
             </select>
           </div>
 
-          <div className={`col-md-6 mb-4 ${showCitySelect ? '' : 'd-none'}`}>
+          <div className={`col-md-6 ${showCitySelect ? '' : 'd-none'}`}>
             <label htmlFor="citySelect" className="form-label htmlFor"></label>
             <select
               value={selectedCity}
@@ -187,7 +198,7 @@ const RequestInfo = () => {
           </div>
 
           <div className="row">
-  <div className={`col-md-5 mb-2 ${showMunicipalitySelect ? '' : 'd-none'}`}>
+  <div className={`col-md-6 ${showMunicipalitySelect ? '' : 'd-none'}`}>
     <label htmlFor="municipalitySelect" className="form-label htmlFor"></label>
     <select                
       value={selectedMunicipality}

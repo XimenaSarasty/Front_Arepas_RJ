@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import "../assets/Style.css";
 import { NavLink } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import "../assets/Style.css";
 
 const FeeShipment = () => {
   const [selectedDepartment, setSelectedDepartment] = useState('');
@@ -93,14 +94,25 @@ const FeeShipment = () => {
         deliveryPrice: price
       };
 
-      const response = await axios.post('http://localhost:8080/api/delivery/save', data);
-      console.log(response.data.message); // Log the response message
-      alert('Precio de domicilio agregado correctamente!')
-      window.location.reload();
-    } catch (error) {
-      console.error('Error saving delivery price:', error);
-    }
-  };
+      const token = Cookies.get('token');
+
+      if (!token) {
+          console.error("Token no encontrado. No se puede actualizar el producto.");
+          return;
+      }
+
+      const response = await axios.post('http://localhost:8080/api/admin/delivery/save', data, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+    console.log(response.data.message); 
+    alert('Precio de domicilio agregado correctamente!');
+    window.location.reload();
+} catch (error) {
+    console.error('Error saving delivery price:', error);
+}
+};
 
   return (
     <div className='agregar-producto-container'>

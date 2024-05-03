@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import "../assets/Style.css"
+import Cookies from 'js-cookie'; 
 import { NavLink } from 'react-router-dom';
 
 const AgregarProducto = () => {
@@ -17,6 +17,7 @@ const AgregarProducto = () => {
 
         setProduct({ ...product, [name]: newValue });
     };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -27,11 +28,16 @@ const AgregarProducto = () => {
             formData.append('price', product.price);
             formData.append('image', product.image);
 
-            await axios.post('http://localhost:8080/api/regProduct', formData, {
+            const token = Cookies.get('token');
+
+            
+            const response = await axios.post('http://localhost:8080/api/admin/regProduct', formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${token}` 
                 }
             });
+
             alert('Producto agregado exitosamente');
             window.location.reload();
         } catch (error) {
